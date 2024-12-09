@@ -1,0 +1,139 @@
+body{
+    margin: 0px;
+    background-color: #d4bc8d;
+}
+
+.nav-bar{
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid black; */
+    background-color: #E94B64;
+}
+
+nav{
+    /* border: 1px solid red; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.website-name {
+    /* border: 1px solid grey; */
+    margin-left: 10px;
+    color: white;
+}
+
+.tags{
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: space-evenly;
+    width: 40%;
+}
+
+.tags a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+}
+
+.tags a:hover {
+    color: #d4bc8d;
+}
+
+.logout-button  {
+    /* border: 1px solid green; */
+    margin-right: 20px;
+}
+
+.logout-button button {
+    background-color: #d4bc8d;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.logout-button button:hover {
+    cursor: pointer;
+    background-color: #8b7a57;
+}
+
+.intro {
+    border-bottom: 2px dotted #E94B64;
+}
+.intro .student-name {
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 40px;
+    /* border: 1px solid red; */
+}
+
+.content-container {
+    border: 1px solid black;
+}
+
+.content-container .semester {
+    border: 1px solid red;
+}
+
+.content-container .semester .semester-container {
+    border: 1px solid blue;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.semester-year {
+    border: 1px solid rgb(73, 28, 28);
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
+    /* margin-top: 10px; */
+    background-color: #E94B64;
+}
+
+.course-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid green;
+}
+
+.course-name-container {
+    display: flex;
+    /* flex-direction: row; */
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 20px;
+    border: 1px solid black;
+    width:50%;
+}
+
+.course-name-container .course-name {
+    font-weight: bold;
+}
+
+.professor-name-container {
+    display: flex;
+    /* flex-direction: row; */
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 20px;
+    border: 1px solid black;
+    width:50%;
+}
+
+.professor-name-container .professor-name {
+    font-weight: bold;
+}

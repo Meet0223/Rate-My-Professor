@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import { pool } from './config/database.js';
 dotenv.config();
 import cookieParser from 'cookie-parser';
+//test
+import courses from './data/courses.js';
 
 
 
@@ -124,8 +126,22 @@ app.post('/login', async (req, res) => {
     });
 });
 
+
+//test
+
 app.get('/profile', authenticateJWT, (req, res) => {
-    res.send('hello');
+
+    // Extracts the username from the first part of the email
+
+    const email = req.user.email;
+    let username = email.split('@')[0];
+    username = username.charAt(0).toUpperCase() + username.slice(1);
+    res.render('profile', { username, courses: courses.courseData} );
+});
+
+app.post('/logout', (req, res) => {
+    res.clearCookie('token'); // Clear the authentication token cookie
+    res.status(200).json({ message: 'Logged out successfully.' });
 });
 
 app.listen(PORT, () => {
