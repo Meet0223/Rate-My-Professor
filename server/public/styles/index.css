@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gilroy';
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+
+#container {
+    border: 1px solid lightgrey;
+    width: 70%; 
+    height: 65vh;
+    border-radius: 15px;
+    background-color: #d4bc8d; 
+    display: flex;
+}
+
+#left {
+    width: 40%;
+    background-color: #E94B64;
+    border-radius: 15px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; 
+    position: relative;
+}
+
+#left h2 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: normal;
+    position: relative;
+    top: -160px;
+}
+
+#left h1 {
+    color: white;
+    font-size: 64px;
+    font-weight: bold;
+    width: auto;
+    margin: 0;
+}
+
+#left a{
+    color: white;
+    
+    width: auto;
+    margin-top: 20px;
+}
+
+#right{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.container h2{
+    margin-bottom: 30px;
+    position: relative;
+    left: 100px;
+    font-size:xx-large;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+    color: black;
+    font-size: large;
+    position:relative;
+    left: 100px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 0.75rem;
+    font-size: 22px;
+    position: relative;
+    left: 100px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+}
+
+.checkbox input[type="checkbox"] {
+    margin: 0;
+    position: relative;
+    left: 100px;
+}
+
+.checkbox label {
+    margin: 0;
+    font-size: 20px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #E94B64;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    position: relative;
+    left: 100px;
+}
+
+button[type="submit"]:hover {
+    background-color: #d43d55;
+}
