@@ -139,6 +139,10 @@ app.get('/profile', authenticateJWT, (req, res) => {
     res.render('profile', { username, courses: courses.courseData} );
 });
 
+app.get('/addcourse', authenticateJWT, (req, res) => {
+    res.render('addcourse');
+})
+
 app.post('/logout', (req, res) => {
     res.clearCookie('token'); // Clear the authentication token cookie
     res.status(200).json({ message: 'Logged out successfully.' });
