@@ -1,0 +1,157 @@
+/* Variables for consistent colors */
+:root {
+    --primary-color: #E94D5F;
+    --secondary-color: #D4C5A9;
+    --hover-color: #f26475;
+    --text-color: #333333;
+    --bg-primary: #F0EAE2;  /* Warm beige background */
+    --section-bg: #FAF6F6;  /* Light pink-tinted section background */
+    --form-bg: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-primary);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background-color: var(--form-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(233, 77, 95, 0.1);
+}
+
+/* Header Styles */
+header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--primary-color);
+    margin: -2.5rem -2.5rem 2.5rem -2.5rem;
+    border-radius: 12px 12px 0 0;
+    color: white;
+}
+
+header h1 {
+    color: white;
+    margin: 0;
+}
+
+header p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.5rem;
+}
+
+/* Section Styles */
+section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: var(--section-bg);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(233, 77, 95, 0.1);
+    background-color: #ffffff;
+}
+
+/* Form Element Styles */
+div {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(233, 77, 95, 0.1);
+}
+
+/* Section Headers */
+h2 {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    font-size: 1.3rem;
+}
+
+/* Button Styles */
+button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 900;
+    font-size: 200%;
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+}
+
+button:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(233, 77, 95, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Required Field Indicator */
+label span {
+    color: var(--primary-color);
+    margin-left: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    button {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}

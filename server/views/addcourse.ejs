@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course</title>
+    <link rel="stylesheet" href="/styles/addcourse.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Add Course Details</h1>
+            <p>Use this form to add a course you’ve taken, review it, and rate the professor.</p>
+        </header>
+
+        <form action="/add-course" method="POST">
+            <!-- Section 1: Course Details -->
+            <section>
+                <h2>Course Details</h2>
+                <div>
+                    <label for="courseCode">Course Code <span>*</span>:</label>
+                    <input type="text" id="courseCode" name="courseCode" placeholder="e.g., CSC210" required>
+                </div>
+
+                <div>
+                    <label for="courseName">Course Name <span>*</span>:</label>
+                    <input type="text" id="courseName" name="courseName" placeholder="e.g., Intro to Web Development" required>
+                </div>
+
+                <div>
+                    <label for="semester">Semester <span>*</span>:</label>
+                    <select id="semester" name="semester" required>
+                        <option value="" disabled selected>Select Semester</option>
+                        <option value="Spring">Spring</option>
+                        <option value="Summer">Summer</option>
+                        <option value="Fall">Fall</option>
+                        <option value="Winter">Winter</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="year">Year <span>*</span>:</label>
+                    <select id="year" name="year" required>
+                        <option value="" disabled selected>Select Year</option>
+                        <% for (let year = 2020; year <= 2024; year++) { %>
+                            <option value="<%= year %>"><%= year %></option>
+                        <% } %>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Section 2: Professor Details -->
+            <section>
+                <h2>Professor Details</h2>
+                <div>
+                    <label for="professorName">Professor Name <span>*</span>:</label>
+                    <input type="text" id="professorName" name="professorName" placeholder="e.g., Dr. John Doe" required>
+                </div>
+            </section>
+
+            <!-- Section 3: Course Review -->
+            <section>
+                <h2>Course Review</h2>
+                <div>
+                    <label for="courseTopics">Course Descriptions:</label>
+                    <textarea id="courseTopics" name="courseTopics" rows="4" placeholder="List the key topics covered in the course"></textarea>
+                </div>
+            </section>
+
+            <!-- Section 4: Professor Rating -->
+            <section>
+                <h2>Professor Rating</h2>
+                <div>
+                    <label for="professorRating">Rating (0-5) <span>*</span>:</label>
+                    <input type="number" id="professorRating" name="professorRating" min="0" max="5" step="0.5" required>
+                </div>
+
+                <div>
+                    <label for="difficultyLevel">Difficulty Level (0-5) <span>*</span>:</label>
+                    <input type="number" id="difficultyLevel" name="difficultyLevel" min="0" max="5" step="0.5" required>
+                </div>
+
+                <div>
+                    <label for="attendance">Attendance <span>*</span>:</label>
+                    <select id="attendance" name="attendance" required>
+                        <option value="" disabled selected>Select Attendance Requirement</option>
+                        <option value="Must">Needed</option>
+                        <option value="Flexible">Not Needed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="textbook">TextBook <span>*</span>:</label>
+                    <select id="textbook" name="textbook" required>
+                        <option value="" disabled selected>Select TextBook Requirement</option>
+                        <option value="Must">Mandatory</option>
+                        <option value="Flexible">Not Mandatory</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Buttons -->
+            <section>
+                <div>
+                    <button type="submit" formaction="/add-course-review">Add Course Review</button>
+                </div>
+            </section>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/styles/profile.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <nav>
+            <!-- Welcomes the user with the extracted username from the email -->
+            <h2 class="website-name">Rate My Professor</h2>
+            <div class="tags">
+                <a href="profile">Profile</a>
+                <a href="addcourse">Add Course</a>
+                <a href="search-page">Search</a>
+            </div>
+            <div class="logout-button">
+                <button id ="logoutButton">Log Out</button>
+            </div>
+        </nav>
+    </div>
+   
+
+    <div class="content-container">
+        <div class="intro">
+            <h2 class="student-name">Welcome, <%= username %></h2>
+        </div>
+
+        <!-- Loop through the semesters and courses -->
+        <% courses.forEach((semester) => { %>
+            <div class="semester">
+                <div class="semester-container">
+                    <div class="semester-year"><%= semester.semester %></div>
+                    <!-- Loop through each course in the semester -->
+                    <% semester.courses.forEach((course) => { %>
+                        <div class="course-container">
+                            <p>Course:</p>
+                            <div class="course-name-container">
+                                <p class="course-name"><%= course.name %></p>
+                                <button class="course-review-button">Add Review</button>
+                            </div>
+                            <p>Instructor:</p>
+                            <div class="professor-name-container">
+                                <p class="professor-name"><%= course.instructor %></p>
+                                <button class="professor-review-button">Rate Professor</button>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+
+    <script src="scripts/logout.js"></script>
+</body>
+</html>
