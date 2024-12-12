@@ -1,4 +1,4 @@
-// logout button implemetation
+
 
 document.getElementById('logoutButton').addEventListener('click', async () => {
     try {
@@ -6,7 +6,7 @@ document.getElementById('logoutButton').addEventListener('click', async () => {
         const response = await fetch('/logout', { method: 'POST' });
         
         if (response.ok) {
-            // Redirect the user to the login page
+
             window.location.href = '/login';
         } else {
             console.error('Logout failed');

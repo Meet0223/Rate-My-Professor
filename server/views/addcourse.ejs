@@ -7,14 +7,25 @@
     <link rel="stylesheet" href="/styles/addcourse.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-brand">Rate My Professor</div>
+        <div class="nav-links">
+            <a href="/profile">Profile</a>
+            <a href="/addcourse" class="active">Add Review</a>
+            <a href="/search">Search</a>
+            <form id="logoutForm" action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
     <main>
         <header>
-            <h1>Add Course Details</h1>
+            <h1>Add Course Review</h1>
             <p>Use this form to add a course you’ve taken, review it, and rate the professor.</p>
         </header>
 
-        <form action="/add-course" method="POST">
-            <!-- Section 1: Course Details -->
+        <form id="reviewForm" action="/addCourse" method="POST">
+
             <section>
                 <h2>Course Details</h2>
                 <div>
@@ -49,7 +60,7 @@
                 </div>
             </section>
 
-            <!-- Section 2: Professor Details -->
+
             <section>
                 <h2>Professor Details</h2>
                 <div>
@@ -58,7 +69,7 @@
                 </div>
             </section>
 
-            <!-- Section 3: Course Review -->
+
             <section>
                 <h2>Course Review</h2>
                 <div>
@@ -67,7 +78,7 @@
                 </div>
             </section>
 
-            <!-- Section 4: Professor Rating -->
+
             <section>
                 <h2>Professor Rating</h2>
                 <div>
@@ -99,13 +110,16 @@
                 </div>
             </section>
 
-            <!-- Buttons -->
+
             <section>
-                <div>
-                    <button type="submit" formaction="/add-course-review">Add Course Review</button>
+                <div class="button-group">
+                    <button type="submit" id="btn">Submit</button>
+                    <a href="/profile" class="back-btn">Back</a>
                 </div>
             </section>
         </form>
     </main>
+
+    <script src="/scripts/addcourse.js"></script>
 </body>
 </html>

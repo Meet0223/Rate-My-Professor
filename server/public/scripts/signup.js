@@ -1,4 +1,3 @@
-// Example: signUp.js (or similar)
 const signUpForm = document.getElementById('signUpForm');
 
 signUpForm.addEventListener('submit', async (e) => {
@@ -19,12 +18,12 @@ signUpForm.addEventListener('submit', async (e) => {
         const result = await response.json();
 
         if (response.ok) {
-            // Store token in localStorage or sessionStorage
+
             localStorage.setItem('authToken', result.token);
             alert('User registered successfully!');
-            window.location.href = '/login'; // Redirect after successful registration
+            window.location.href = '/login'; 
         } else {
-            alert(result.error); // Display error message
+            alert(result.error); 
         }
     } catch (error) {
         console.error(error);

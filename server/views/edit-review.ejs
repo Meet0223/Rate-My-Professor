@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Review</title>
+    <link rel="stylesheet" href="/styles/addcourse.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Rate My Professor</div>
+        <div class="nav-links">
+            <a href="/profile">Profile</a>
+            <a href="/addcourse">Add Review</a>
+            <a href="/search">Search</a>
+            <form id="logoutForm" action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
+    <main>
+        <header>
+            <h1>Edit Course Review</h1>
+            <p>Use this form to edit your course review and rating.</p>
+        </header>
+
+        <form action="/edit-review/<%= review.id %>" method="POST">
+
+            <section>
+                <h2>Course Details</h2>
+                <div>
+                    <label for="courseCode">Course Code:</label>
+                    <input type="text" id="courseCode" value="<%= review.course_code %>" disabled>
+                </div>
+
+                <div>
+                    <label for="semester">Semester <span>*</span>:</label>
+                    <select id="semester" name="semester" required>
+                        <option value="Spring" <%= review.semester === 'Spring' ? 'selected' : '' %>>Spring</option>
+                        <option value="Summer" <%= review.semester === 'Summer' ? 'selected' : '' %>>Summer</option>
+                        <option value="Fall" <%= review.semester === 'Fall' ? 'selected' : '' %>>Fall</option>
+                        <option value="Winter" <%= review.semester === 'Winter' ? 'selected' : '' %>>Winter</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="year">Year <span>*</span>:</label>
+                    <select id="year" name="year" required>
+                        <% for(let y = 2020; y <= 2024; y++) { %>
+                            <option value="<%= y %>" <%= review.year == y ? 'selected' : '' %>><%= y %></option>
+                        <% } %>
+                    </select>
+                </div>
+            </section>
+
+
+            <section>
+                <h2>Professor Details</h2>
+                <div>
+                    <label for="professor_name">Professor Name <span>*</span>:</label>
+                    <input type="text" id="professor_name" name="professor_name" value="<%= review.professor_name %>" required>
+                </div>
+            </section>
+
+
+            <section>
+                <h2>Course Review</h2>
+                <div>
+                    <label for="course_description">Course Description:</label>
+                    <textarea id="course_description" name="course_description" rows="4"><%= review.course_description %></textarea>
+                </div>
+            </section>
+
+
+            <section>
+                <h2>Professor Rating</h2>
+                <div>
+                    <label for="professor_rating">Rating (0-5) <span>*</span>:</label>
+                    <input type="number" id="professor_rating" name="professor_rating" min="0" max="5" step="0.5" value="<%= review.professor_rating %>" required>
+                </div>
+
+                <div>
+                    <label for="difficulty_level">Difficulty Level (0-5) <span>*</span>:</label>
+                    <input type="number" id="difficulty_level" name="difficulty_level" min="0" max="5" step="0.5" value="<%= review.difficulty_level %>" required>
+                </div>
+
+                <div>
+                    <label for="attendance_required">Attendance <span>*</span>:</label>
+                    <select id="attendance_required" name="attendance_required" required>
+                        <option value="true" <%= review.attendance_required ? 'selected' : '' %>>Needed</option>
+                        <option value="false" <%= !review.attendance_required ? 'selected' : '' %>>Not Needed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="textbook_required">TextBook <span>*</span>:</label>
+                    <select id="textbook_required" name="textbook_required" required>
+                        <option value="true" <%= review.textbook_required ? 'selected' : '' %>>Mandatory</option>
+                        <option value="false" <%= !review.textbook_required ? 'selected' : '' %>>Not Mandatory</option>
+                    </select>
+                </div>
+            </section>
+
+
+            <section>
+                <div class="button-group">
+                    <button type="submit" id="btn">Save Changes</button>
+                    <a href="/profile" class="back-btn">Back</a>
+                </div>
+            </section>
+        </form>
+    </main>
+</body>
+</html>

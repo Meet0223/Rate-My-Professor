@@ -1,138 +1,256 @@
+:root {
+    --primary: #ff385c;
+    --white: #ffffff;
+    --background: #f7f7f7;
+    --text-dark: #222222;
+    --text-light: #717171;
+    --shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Gilroy';
+    font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-html, body {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f7f7f7;
+body {
+    background: var(--background);
+    height: 100vh;
 }
 
-#container {
-    border: 1px solid lightgrey;
-    width: 70%; 
-    height: 65vh;
-    border-radius: 15px;
-    background-color: #d4bc8d; 
-    display: flex;
+.auth-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    height: 100vh;
 }
 
-#left {
-    width: 40%;
-    background-color: #E94B64;
-    border-radius: 15px;
-    padding: 40px;
+.auth-banner {
+    background: var(--primary);
+    padding: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start; 
     position: relative;
+    overflow: hidden;
+    animation: fadeInLeft 1s ease-out;
 }
 
-#left h2 {
-    color: white;
+.auth-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1));
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+}
+
+.brand-name {
+    color: var(--white);
     font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: normal;
+    font-weight: 600;
+    margin-bottom: 32px;
+}
+
+.auth-title {
+    color: var(--white);
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.auth-switch-link {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 18px;
     position: relative;
-    top: -160px;
+    width: fit-content;
 }
 
-#left h1 {
-    color: white;
-    font-size: 64px;
-    font-weight: bold;
-    width: auto;
-    margin: 0;
+.auth-switch-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: var(--white);
+    transition: width 0.3s ease;
 }
 
-#left a{
-    color: white;
-    
-    width: auto;
-    margin-top: 20px;
+.auth-switch-link:hover::after {
+    width: 100%;
 }
 
-#right{
-    padding: 40px;
+.auth-content {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
 }
 
-.container h2{
-    margin-bottom: 30px;
-    position: relative;
-    left: 100px;
-    font-size:xx-large;
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--white);
+    padding: 48px;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    animation: fadeInRight 1s ease-out;
+}
+
+.form-title {
+    color: var(--text-dark);
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .form-group label {
     display: block;
+    color: var(--text-dark);
+    font-size: 16px;
+    font-weight: 500;
     margin-bottom: 8px;
-    font-size: 14px;
-    color: #333;
-    color: black;
-    font-size: large;
-    position:relative;
-    left: 100px;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input:not([type="checkbox"]) {
     width: 100%;
-    padding: 10px;
-    border: none;
+    padding: 16px;
+    font-size: 16px;
+    border: 2px solid #e1e1e1;
+    border-radius: 12px;
+    background: var(--white);
+    transition: all 0.3s ease;
+}
+
+.form-group input:not([type="checkbox"]):focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(255, 56, 92, 0.1);
     outline: none;
-    border-radius: 0.75rem;
-    font-size: 22px;
-    position: relative;
-    left: 100px;
+}
+
+.form-group input:not([type="checkbox"]):hover {
+    border-color: #c4c4c4;
 }
 
 .checkbox {
     display: flex;
     align-items: center;
-    gap: 8px;
-    
+    gap: 12px;
 }
 
-.checkbox input[type="checkbox"] {
-    margin: 0;
-    position: relative;
-    left: 100px;
+.checkbox input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
 
 .checkbox label {
-    margin: 0;
-    font-size: 20px;
+    color: var(--text-light);
+    font-size: 15px;
 }
 
-button[type="submit"] {
+.auth-submit-btn {
     width: 100%;
-    padding: 12px;
-    background-color: #E94B64;
-    color: white;
+    padding: 16px;
+    background: var(--primary);
+    color: var(--white);
     border: none;
-    border-radius: 4px;
+    border-radius: 12px;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    margin-top: 10px;
+    transition: all 0.3s ease;
     position: relative;
-    left: 100px;
+    overflow: hidden;
 }
 
-button[type="submit"]:hover {
-    background-color: #d43d55;
+.auth-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shine 8s infinite linear;
 }
+
+.auth-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 56, 92, 0.3);
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    20% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
+.form-group.error input {
+    border-color: #ff3860;
+    animation: shake 0.5s linear;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+

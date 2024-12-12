@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Reviews | Rate My Professor</title>
+    <link rel="stylesheet" href="/styles/search.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Rate My Professor</div>
+        <div class="nav-links">
+            <a href="/profile">Profile</a>
+            <a href="/addcourse">Add Review</a>
+            <a href="/search" class="active">Search</a>
+            <form id="logoutForm" action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="search-page">
+        <div class="search-container">
+            <h1>Search Course Reviews</h1>
+            <form action="/search" method="GET" class="search-form">
+                <div class="search-input-group">
+                    <input 
+                        type="text" 
+                        name="courseCode" 
+                        id="courseCode" 
+                        placeholder="Enter Course Code (e.g., CSC317)" 
+                        value="<%= locals.courseCode || '' %>"
+                        required
+                    >
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="results-container">
+            <% if (locals.reviews && reviews.length > 0) { %>
+                <h2><%= reviews.length %> Reviews for <%= reviews[0].course_code %></h2>
+                <div class="reviews-grid">
+                    <% reviews.forEach(review => { %>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <h3><%= review.course_code %> - <%= review.course_name %></h3>
+                                <p class="semester"><%= review.semester %> <%= review.year %></p>
+                            </div>
+
+                            <div class="professor-details">
+                                <p class="professor">Professor: <%= review.professor_name %></p>
+                                <div class="ratings">
+                                    <span class="rating">Professor Rating: <%= review.professor_rating %>/5</span>
+                                    <span class="difficulty">Difficulty: <%= review.difficulty_level %>/5</span>
+                                </div>
+                            </div>
+
+                            <div class="course-requirements">
+                                <p>Attendance: <%= review.attendance_required ? 'Required' : 'Not Required' %></p>
+                                <p>Textbook: <%= review.textbook_required ? 'Required' : 'Not Required' %></p>
+                            </div>
+
+                            <% if (review.course_description) { %>
+                                <div class="description">
+                                    <p><%= review.course_description %></p>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else if (locals.searched) { %>
+                <div class="no-results">
+                    <p>No reviews found for this course.</p>
+                    <p>Would you like to <a href="/addcourse">add the first review</a>?</p>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <script src="/scripts/search.js"></script>
+</body>
+</html>

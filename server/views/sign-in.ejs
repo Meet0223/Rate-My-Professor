@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="/styles/signin.css">
 </head>
 <body>
-    <div id="container">
-        <div id="left">
-            <h2>Rate My Professor</h2>
-            <h1>Sign In</h1>
-            <a href="/">Do not have an Account?</a> 
+    <div class="auth-layout">
+        <div class="auth-banner">
+            <h2 class="brand-name">Rate My Professor</h2>
+            <h1 class="auth-title">Sign In</h1>
+            <a href="/" class="auth-switch-link">Do not have an Account?</a> 
         </div>
-        <div id="right">
-            <div class="container">
-                <form id="signInForm" action="/login" method="POST"> 
-                    <h2>Sign In</h2>
+        <div class="auth-content">
+            <div class="auth-card">
+                <form id="signInForm" class="auth-form" action="/login" method="POST"> 
+                    <h2 class="form-title">Sign In</h2>
                     
                     <div class="form-group">
                         <label for="email">Email Address</label>
@@ -52,7 +52,7 @@
                         </label>
                     </div>
         
-                    <button type="submit">Sign In</button>
+                    <button type="submit" class="auth-submit-btn">Sign In</button>
                 </form>
             </div>
         </div>

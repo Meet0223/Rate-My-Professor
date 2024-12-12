@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="/styles/index.css">
 </head>
 <body>
-    <div id="container">
-        <div id="left">
-            <h2>Rate My Professor</h2>
-            <h1>Sign Up</h1>
-            <a href="/login">Already have an Account?</a> 
+    <div class="auth-layout">
+        <div class="auth-banner">
+            <h2 class="brand-name">Rate My Professor</h2>
+            <h1 class="auth-title">Sign Up</h1>
+            <a href="/login" class="auth-switch-link">Already have an Account?</a> 
         </div>
-        <div id="right">
-            <div class="container">
-                <form id="signUpForm" action="/register" method="POST">
-                    <h2>Create Account</h2>
+        <div class="auth-content">
+            <div class="auth-card">
+                <form id="signUpForm" class="auth-form" action="/register" method="POST">
+                    <h2 class="form-title">Create Account</h2>
                     
                     <div class="form-group">
                         <label for="fullname">Full Name</label>
@@ -65,7 +65,7 @@
                         </label>
                     </div>
         
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" class="auth-submit-btn">Sign Up</button>
                 </form>
             </div>
         </div>

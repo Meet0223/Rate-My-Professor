@@ -3,57 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile | Rate My Professor</title>
     <link rel="stylesheet" href="/styles/profile.css">
 </head>
 <body>
-    <div class="nav-bar">
-        <nav>
-            <!-- Welcomes the user with the extracted username from the email -->
-            <h2 class="website-name">Rate My Professor</h2>
-            <div class="tags">
-                <a href="profile">Profile</a>
-                <a href="addcourse">Add Course</a>
-                <a href="search-page">Search</a>
-            </div>
-            <div class="logout-button">
-                <button id ="logoutButton">Log Out</button>
-            </div>
-        </nav>
-    </div>
-   
+    <nav class="navbar">
+        <a href="/" class="nav-brand">Rate My Professor</a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="/profile" class="active">Profile</a>
+            <a href="/addcourse">Add Course</a>
+            <a href="/search">Search</a>
+            <form id="logoutForm" action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
 
-    <div class="content-container">
-        <div class="intro">
-            <h2 class="student-name">Welcome, <%= username %></h2>
+    <main class="profile-page">
+        <div class="user-info">
+            <h1>Welcome, <%= user.fullname %></h1>
+            <p><%= user.email %></p>
         </div>
 
-        <!-- Loop through the semesters and courses -->
-        <% courses.forEach((semester) => { %>
-            <div class="semester">
-                <div class="semester-container">
-                    <div class="semester-year"><%= semester.semester %></div>
-                    <!-- Loop through each course in the semester -->
-                    <% semester.courses.forEach((course) => { %>
-                        <div class="course-container">
-                            <p>Course:</p>
-                            <div class="course-name-container">
-                                <p class="course-name"><%= course.name %></p>
-                                <button class="course-review-button">Add Review</button>
+        <div class="reviews-container">
+            <h2>Your Course Reviews</h2>
+            
+            <% if (reviews && reviews.length > 0) { %>
+                <div class="reviews-list">
+                    <% reviews.forEach(review => { %>
+                        <div class="review-item"  data-review-id="<%= review.review_id %>">
+                            <h3><%= review.course_code %> - <%= review.course_name %></h3>
+                            <p><%= review.semester %> <%= review.year %></p>
+                            <p>Professor: <%= review.professor_name %></p>
+                            <div class="review-ratings">
+                                <p>Professor Rating: <%= review.professor_rating %>/5</p>
+                                <p>Difficulty: <%= review.difficulty_level %>/5</p>
                             </div>
-                            <p>Instructor:</p>
-                            <div class="professor-name-container">
-                                <p class="professor-name"><%= course.instructor %></p>
-                                <button class="professor-review-button">Rate Professor</button>
+                            <div class="review-requirements">
+                                <p>Attendance: <%= review.attendance_required ? 'Required' : 'Not Required' %></p>
+                                <p>Textbook: <%= review.textbook_required ? 'Required' : 'Not Required' %></p>
+                            </div>
+                            <% if (review.course_description) { %>
+                                <p class="review-description"><%= review.course_description %></p>
+                            <% } %>
+                            <div class="review-buttons">
+                                <button onclick="editReview('<%= review.review_id %>')" class="edit-btn">Edit</button>
+                                <button onclick="deleteReview('<%= review.review_id %>')" class="delete-btn">Delete</button>
                             </div>
                         </div>
                     <% }); %>
                 </div>
-            </div>
-        <% }); %>
-    </div>
+            <% } else { %>
+                <div class="no-reviews">
+                    <p>You haven't written any reviews yet.</p>
+                    <a href="/addcourse">Add Your First Review</a>
+                </div>
+            <% } %>
+        </div>
+    </main>
 
 
-    <script src="scripts/logout.js"></script>
+    <script> 
+        document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+        });
+    </script>
+    <script src="/scripts/profile.js"></script>
 </body>
 </html>

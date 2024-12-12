@@ -2,13 +2,17 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { pool } from './config/database.js';
 dotenv.config();
 import cookieParser from 'cookie-parser';
-//test
-import courses from './data/courses.js';
+import { addCourseReview } from './controller/courseCoontroller.js'
+import validateCourseInput from './middleware/courseMiddleware.js'
+import editReviewRoutes from './routes/editReviewRoutes.js';
+import { authenticateJWT } from './middleware/authJWT.js';
+import searchRoutes from './routes/searchRoutes.js';
+
 
 
 
@@ -23,25 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));  
+app.use(express.urlencoded({ extended: true }));
+app.use('/', editReviewRoutes); 
+app.use('/', searchRoutes);
 
-const authenticateJWT = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '') || 
-    req.cookies?.token;
 
-    if (!token) {
-        return res.status(401).json({ error: 'Access denied. No token provided.' });
-    }
-
-    try {
-
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;  
-        next();  
-    } catch (err) {
-        res.status(400).json({ error: 'Invalid or expired token.' });
-    }
-};
 
 app.get('/', (req, res) => {
     res.render("sign-up", { fullname: '', email: '' })
@@ -127,26 +117,118 @@ app.post('/login', async (req, res) => {
 });
 
 
-//test
 
-app.get('/profile', authenticateJWT, (req, res) => {
 
-    // Extracts the username from the first part of the email
+app.get('/profile', authenticateJWT, async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        if (!userId) {
+            return res.redirect('/login');
+        }
 
-    const email = req.user.email;
-    let username = email.split('@')[0];
-    username = username.charAt(0).toUpperCase() + username.slice(1);
-    res.render('profile', { username, courses: courses.courseData} );
+
+        const userQuery = 'SELECT id, fullname, email FROM users WHERE id = $1';
+        const userResult = await pool.query(userQuery, [userId]);
+        
+        if (userResult.rows.length === 0) {
+            return res.redirect('/login');
+        }
+        
+        const user = userResult.rows[0];
+
+
+        const reviewsQuery = `
+            SELECT 
+                cr.id as review_id,
+                cr.semester,
+                cr.year,
+                cr.professor_name,
+                cr.course_description,
+                cr.professor_rating,
+                cr.difficulty_level,
+                cr.attendance_required,
+                cr.textbook_required,
+                cr.created_at,
+                c.course_code,
+                c.course_name,
+                u.fullname as reviewer_name,
+                u.email as reviewer_email
+            FROM course_reviews cr
+            JOIN courses c ON cr.course_id = c.id
+            JOIN users u ON cr.user_id = u.id
+            WHERE cr.user_id = $1
+            ORDER BY cr.created_at DESC
+        `;
+
+        const reviewsResult = await pool.query(reviewsQuery, [userId]);
+
+        res.render('profile', {
+            user: user,             
+            reviews: reviewsResult.rows  
+        });
+
+    } catch (error) {
+        console.error('Error in profile route:', error);
+        res.redirect('/login');
+    }
 });
 
 app.get('/addcourse', authenticateJWT, (req, res) => {
     res.render('addcourse');
 })
 
-app.post('/logout', (req, res) => {
-    res.clearCookie('token'); // Clear the authentication token cookie
-    res.status(200).json({ message: 'Logged out successfully.' });
+
+app.delete('/delete-review/:id', authenticateJWT, async (req, res) => {
+    try {
+        
+        const reviewId = req.params.id;
+        
+
+        const userId = req.user.userId;
+
+        
+
+        const checkQuery = `
+            SELECT user_id 
+            FROM course_reviews 
+            WHERE id = $1
+        `;
+        const checkResult = await pool.query(checkQuery, [reviewId]);
+        
+        if (checkResult.rows.length === 0) {
+            return res.status(404).json({ error: 'Review not found' });
+        }
+
+        if (checkResult.rows[0].user_id !== userId) {
+            return res.status(403).json({ error: 'Unauthorized to delete this review' });
+        }
+
+
+        const deleteQuery = `
+            DELETE FROM course_reviews 
+            WHERE id = $1 AND user_id = $2
+        `;
+        await pool.query(deleteQuery, [reviewId, userId]);
+        res.status(200).json({ message: 'Review deleted successfully' });
+        
+
+    } catch (error) {
+        console.error('Error deleting review:', error);
+        res.status(500).json({ error: 'Failed to delete review' });
+    }
 });
+
+
+app.post('/addCourse', authenticateJWT, validateCourseInput, addCourseReview);
+
+app.post('/logout', (req, res) => {
+    res.clearCookie('token'); 
+    res.redirect('/login');
+});
+
+app.get('/search', (req, res) => {
+    res.render('search');
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
